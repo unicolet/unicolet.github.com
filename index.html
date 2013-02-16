@@ -6,6 +6,7 @@
     <link href='http://fonts.googleapis.com/css?family=Armata|Oleo+Script+Swash+Caps|Julius+Sans+One' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="d3/d3.js"></script>
     <script type="text/javascript" src="d3/d3.layout.js"></script>
+    <script type="text/javascript" src="d3/lib/colorbrewer.js"></script>
     <style type="text/css">
 
         .chart {
@@ -26,10 +27,12 @@
 </head>
 <body>
 <div id="twitter">
-    <a href="https://twitter.com/AFactotum" class="twitter-follow-button" data-show-count="false" data-lang="it">Follow Me</a>
+    <a href="https://twitter.com/AFactotum" class="twitter-follow-button" data-show-count="false">Follow Me</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
-<div id="body">
+<div id="hireme">
+    <a href="mailto:umberto.nicoletti@gmail.com?Subject=Please come join us!">Hire Umberto</a>
+</div><div id="body">
 </div>
 <script type="text/javascript">
 
@@ -37,7 +40,8 @@
         h = 800 - 180,
         x = d3.scale.linear().range([0, w]),
         y = d3.scale.linear().range([0, h]),
-        color = d3.scale.category20c(),
+        //color = d3.scale.category20c(),
+        color,
         root,
         node;
 
@@ -67,6 +71,9 @@
 
     d3.json("aboutme.json", function (data) {
         node = root = data;
+
+        color = d3.scale.ordinal()
+                .range(colorbrewer.Blues[10]);
 
         //var nodes = treemap.nodes(root)
         //       .filter(function (d) {
@@ -132,7 +139,7 @@
                     if(d.isTitle)
                         return 'Oleo Script Swash Caps, cursive';
                     else
-                        return 'Julius Sans One, sans-serif';
+                        return 'Armata';
 
                 }).style("font-size", function(d){
                     if(d.isTitle)
