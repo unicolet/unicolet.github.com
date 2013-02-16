@@ -18,7 +18,7 @@
                 {
                     "name":"OS",
                     "children":[
-                        {"name":"Linux","size":4000},
+                        {"name":"Linux","size":3000},
                         {"name":"Windows","size":1000},
                         {"name":"Solaris","size":50}
                     ]
@@ -97,13 +97,22 @@
                             {"name":"Sproutcore", "size": 600},
                             {"name":"jQuery", "size": 500},
                             {"name":"Prototype", "size": 500},
-                            {"name":"GWT", "size": 300}
+                            {"name":"GWT", "size": 300},
+                            {"name":"Bootstrap", "size": 450}
                         ]
                     },
                     {"name":"HTML5", "size": 900},
                     {"name":"CSS", "size": 900}
                 ]
             }
+            ]
+        },
+        {
+            "name": "GIS",
+            "children":[
+                {"name":"OpenLayers", "size": 800},
+                {"name":"Mapserver", "size": 900},
+                {"name":"PostGIS", "size": 950}
             ]
         }
     ]
