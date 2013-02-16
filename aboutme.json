@@ -1,0 +1,110 @@
+{
+    "name":"Umberto Nicoletti",
+    "isTitle": true,
+    "children":[
+        {
+            "name":"Systems Administration",
+            "children":[
+                {
+                    "name":"Clustering",
+                    "children":[
+                        {"name":"drbd","size":800},
+                        {"name":"ha","size":1000},
+                        {"name":"lvs","size":800},
+                        {"name":"dns rr","size":1000},
+                        {"name":"loadbalacing","size":1000}
+                    ]
+                },
+                {
+                    "name":"OS",
+                    "children":[
+                        {"name":"Linux","size":4000},
+                        {"name":"Windows","size":1000},
+                        {"name":"Solaris","size":50}
+                    ]
+                },
+                {
+                    "name":"Automation",
+                    "children":[
+                        {"name":"Salt Stack","size":1000},
+                        {"name":"Vagrant","size":300}
+                    ]
+                },
+                {
+                    "name":"Virtualization",
+                    "children":[
+                        {"name":"VMWare","size":1000},
+                        {"name":"VirtualBox","size":300}
+                    ]
+                }
+            ]
+        },
+        {
+        "name":"Monitoring",
+        "children":[
+            {
+                "name": "OpenNMS",
+                "children":[
+                    {"name":"Oracle EM", "size": 500},
+                    {"name":"Application logs", "size": 500},
+                    {"name":"SNMP", "size": 900},
+                    {"name":"Windows", "size": 500},
+                    {"name":"Syslog", "size": 500}
+                ]
+            },
+            {"name": "Graphite","size": 1000},
+            {"name": "Collectd","size": 1000},
+            {"name": "Nagios","size": 300},
+            {"name": "Mrtg","size": 200}
+            ]
+        },
+        {
+        "name":"Programming",
+        "children":[
+            {
+                "name": "Java",
+                "children":[
+                    {"name":"Struts", "size": 400},
+                    {"name":"Spring Security", "size": 500},
+                    {"name":"Grails", "size": 900},
+                    {"name":"Groovy", "size": 900},
+                    {"name":"Ja-SIG CAS", "size": 500}
+                ]
+            },
+            {
+                "name": "Database",
+                "children":[
+                    {"name":"Oracle", "size": 900},
+                    {"name":"Postgres", "size": 900},
+                    {"name":"SQLServer", "size": 200}
+                ]
+            },
+            {
+                "name": "Disciplines",
+                "children":[
+                    {"name":"Extreme Programming", "size": 300},
+                    {"name":"Agile", "size": 400},
+                    {"name":"DevOps", "size": 500},
+                    {"name":"Pragmatic Programming", "size": 900}
+                ]
+            },
+            {
+                "name": "Web",
+                "children":[
+                    {
+                        "name":"Javascript",
+                        "children":[
+                            {"name":"Sproutcore", "size": 600},
+                            {"name":"jQuery", "size": 500},
+                            {"name":"Prototype", "size": 500},
+                            {"name":"GWT", "size": 300}
+                        ]
+                    },
+                    {"name":"HTML5", "size": 900},
+                    {"name":"CSS", "size": 900}
+                ]
+            }
+            ]
+        }
+    ]
+}

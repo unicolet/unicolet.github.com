@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Armata|Oleo+Script+Swash+Caps|Julius+Sans+One' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="d3/d3.js"></script>
+    <script type="text/javascript" src="d3/d3.layout.js"></script>
+    <style type="text/css">
+
+        .chart {
+            display: block;
+            margin: auto;
+            margin-top: 40px;
+        }
+
+        text {
+            font-size: 11px;
+        }
+
+        rect {
+            fill: none;
+        }
+
+    </style>
+</head>
+<body>
+<div id="twitter">
+    <a href="https://twitter.com/AFactotum" class="twitter-follow-button" data-show-count="false" data-lang="it">Follow Me</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+<div id="body">
+</div>
+<script type="text/javascript">
+
+    var w = 1280 - 80,
+        h = 800 - 180,
+        x = d3.scale.linear().range([0, w]),
+        y = d3.scale.linear().range([0, h]),
+        color = d3.scale.category20c(),
+        root,
+        node;
+
+    var treemap = d3.layout.treemap()
+            .round(false)
+            .size([w, h])
+            .sticky(false)
+            .padding(function(d){
+                if(d.isTitle) {
+                    return [50,0,0,0];
+                }
+                return [30,0,0,0];
+            })
+            .value(function (d) {
+                return d.size;
+            });
+
+    var svg = d3.select("#body").append("div")
+            .attr("class", "chart")
+            .style("width", w + "px")
+            .style("height", h + "px")
+            .append("svg:svg")
+            .attr("width", w)
+            .attr("height", h)
+            .append("svg:g")
+            .attr("transform", "translate(.5,.5)");
+
+    d3.json("aboutme.json", function (data) {
+        node = root = data;
+
+        //var nodes = treemap.nodes(root)
+        //       .filter(function (d) {
+        //            return !d.children;
+        //        });
+        var nodes = treemap.nodes(root)
+                .filter(function (d) {
+                    return d.name;
+                });
+
+        var cell = svg.selectAll("g")
+                .data(nodes)
+                .enter().append("svg:g")
+                .attr("class", "cell")
+                .attr("transform", function (d) {
+                    return "translate(" + d.x + "," + d.y + ")";
+                })
+                .on("click", function (d) {
+                    return zoom(node == d.parent ? root : d.parent);
+                });
+
+        cell.append("svg:rect")
+                .attr("width", function (d) {
+                    return d.dx - 1;
+                })
+                .attr("height", function (d) {
+                    return d.dy - 1;
+                })
+                .style("fill", function (d) {
+                    if(d.parent)
+                        return color(d.parent.name);
+                    else
+                        return color(d.name+"1");
+                });
+
+        cell.append("svg:text")
+                .attr("x", function (d) {
+                    return d.dx / 2;
+                })
+                .attr("y", function (d) {
+                    if(d.isTitle) {
+                        return 32;
+                    } else if(d.children) {
+                        return 14 ;
+                    } else
+                        return d.dy / 2;
+                })
+                .attr("dy", ".35em")
+                .attr("text-anchor", "middle")
+                .text(function (d) {
+                    return d.name;
+                })
+                .style("opacity", function (d) {
+                    d.w = this.getComputedTextLength();
+                    return d.dx > d.w ? 1 : 0;
+                }).style("font-weight", function (d) {
+                    if(d.children) {
+                        return "bold";
+                    } else {
+                        return "normal";
+                    }
+                }).style("font-family", function(d){
+                    if(d.isTitle)
+                        return 'Oleo Script Swash Caps, cursive';
+                    else
+                        return 'Julius Sans One, sans-serif';
+
+                }).style("font-size", function(d){
+                    if(d.isTitle)
+                        return "32px";
+                    else
+                        return '11px';
+
+                }).style("fill", function(d){
+                    if(d.isTitle)
+                        return "#F7F7F7";
+                    return '#333';
+                }).style("stroke", function(d){
+                    if(d.isTitle)
+                        return "#333";
+                });;
+
+        d3.select(window).on("click", function () {
+            zoom(root);
+        });
+
+        d3.select("select").on("change", function () {
+            treemap.value(this.value == "size" ? size : count).nodes(root);
+            zoom(node);
+        });
+    });
+
+    function size(d) {
+        return d.size;
+    }
+
+    function count(d) {
+        return 1;
+    }
+
+    function zoom(d) {
+        var kx = w / d.dx, ky = h / d.dy;
+        x.domain([d.x, d.x + d.dx]);
+        y.domain([d.y, d.y + d.dy]);
+
+        var t = svg.selectAll("g.cell").transition()
+                .duration(d3.event.altKey ? 7500 : 750)
+                .attr("transform", function (d) {
+                    return "translate(" + x(d.x) + "," + y(d.y) + ")";
+                });
+
+        t.select("rect")
+                .attr("width", function (d) {
+                    return kx * d.dx - 1;
+                })
+                .attr("height", function (d) {
+                    return ky * d.dy - 1;
+                })
+
+        t.select("text")
+                .attr("x", function (d) {
+                    return kx * d.dx / 2;
+                })
+                .attr("y", function (d) {
+                    if(d.isTitle) {
+                        return 32;
+                    } else if(d.children) {
+                        return 14 ;
+                    } else {
+                        return ky * d.dy / 2;
+                    }
+                })
+                .style("opacity", function (d) {
+                    return kx * d.dx > d.w ? 1 : 0;
+                });
+
+        node = d;
+        d3.event.stopPropagation();
+    }
+
+</script>
+</body>
+</html>
+
