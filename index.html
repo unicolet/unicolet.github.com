@@ -7,12 +7,15 @@
     <script type="text/javascript" src="d3/d3.js"></script>
     <script type="text/javascript" src="d3/d3.layout.js"></script>
     <script type="text/javascript" src="d3/lib/colorbrewer.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
 
         .chart {
             display: block;
             margin: auto;
-            margin-top: 40px;
+            margin-top: 45px;
         }
 
         text {
@@ -33,8 +36,18 @@
 </div>
 <div id="hireme">
     <a href="mailto:umberto.nicoletti@gmail.com?Subject=Please come join us!">Hire Umberto</a>
-</div><div id="body">
 </div>
+<div id="how">
+    <a id="howlink" href="#how" data-html="true" data-placement="bottom" data-content="I realized this visualization using <a href='http://d3js.org/'>D3js</a>.<br/><br/>Click on skill or skill header to zoom in. Click again to zoom out.<br/><br/>Requires a modern browser." data-original-title="Made with HTML5">How I made this</a>
+</div>
+
+<div id="body">
+</div>
+
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 
     var w = 1280 - 80,
@@ -227,6 +240,13 @@
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function(e){
+        $('#howlink').popover();
+    });
 
 </script>
 </body>

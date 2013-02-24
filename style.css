@@ -104,3 +104,23 @@ a:hover {
     color: #ffffff;
     font-size: 12px;
 }
+
+#how {
+    position: absolute;
+    left: 350px;
+    top: 13px;
+    font-family: Armata;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+div.popover {
+    color: #777777;
+    width: 300px;
+}
+
+div.popover a {
+    color: #555;
+    width: 300px;
+    text-decoration: underline;
+}

@@ -98,7 +98,8 @@
                             {"name":"jQuery", "size": 500},
                             {"name":"Prototype", "size": 500},
                             {"name":"GWT", "size": 300},
-                            {"name":"Bootstrap", "size": 450}
+                            {"name":"Bootstrap", "size": 450},
+                            {"name":"Node.js", "size": 300}
                         ]
                     },
                     {"name":"HTML5", "size": 900},
